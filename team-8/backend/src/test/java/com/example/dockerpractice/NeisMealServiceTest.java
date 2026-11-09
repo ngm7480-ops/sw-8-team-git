@@ -103,4 +103,15 @@ class NeisMealServiceTest {
                 .andRespond(withSuccess("{\"mealServiceDietInfo\":[]}", MediaType.APPLICATION_JSON));
         assertThatThrownBy(() -> service.fetch(DATE)).isInstanceOf(ExternalApiException.class);
     }
+
+    @Test
+    void invalidEndpointIsTranslatedWithoutExposingConfiguration() {
+        NeisMealService invalidEndpointService = new NeisMealService(RestClient.builder(),
+                "not a valid endpoint", KEY, "R10", "8750829", "기본학교");
+
+        assertThatThrownBy(() -> invalidEndpointService.fetch(DATE))
+                .isInstanceOf(ExternalApiException.class)
+                .hasMessageNotContaining(KEY)
+                .hasNoCause();
+    }
 }

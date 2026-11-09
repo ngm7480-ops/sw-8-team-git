@@ -45,25 +45,25 @@ public class NeisMealService {
     }
 
     public MealResponse fetch(LocalDate date) {
-        var uri = UriComponentsBuilder.fromUriString(endpoint)
-                .queryParam("Type", "json")
-                .queryParam("pIndex", 1)
-                .queryParam("pSize", 5)
-                .queryParam("ATPT_OFCDC_SC_CODE", officeCode)
-                .queryParam("SD_SCHUL_CODE", schoolCode)
-                .queryParam("MLSV_YMD", date.format(DateTimeFormatter.BASIC_ISO_DATE));
-        if (!apiKey.isBlank()) {
-            uri.queryParam("KEY", apiKey);
-        }
-        URI target = uri.build().encode().toUri();
-
         Map<String, Object> response;
         try {
+            var uri = UriComponentsBuilder.fromUriString(endpoint)
+                    .queryParam("Type", "json")
+                    .queryParam("pIndex", 1)
+                    .queryParam("pSize", 5)
+                    .queryParam("ATPT_OFCDC_SC_CODE", officeCode)
+                    .queryParam("SD_SCHUL_CODE", schoolCode)
+                    .queryParam("MLSV_YMD", date.format(DateTimeFormatter.BASIC_ISO_DATE));
+            if (!apiKey.isBlank()) {
+                uri.queryParam("KEY", apiKey);
+            }
+            URI target = uri.build().encode().toUri();
+
             response = client.get().uri(target)
                     // NEIS는 Accept: application/json에 500을 반환한다. Type=json 쿼리로 JSON을 받는다.
                     .accept(MediaType.ALL).retrieve()
                     .body(new ParameterizedTypeReference<Map<String, Object>>() {});
-        } catch (RestClientException exception) {
+        } catch (RestClientException | IllegalArgumentException exception) {
             // 예외 메시지에는 KEY가 포함된 요청 URL이 들어 있으므로 클래스 이름만 기록한다.
             log.warn("NEIS request failed: {} (cause: {})", exception.getClass().getSimpleName(),
                     exception.getCause() == null ? "none" : exception.getCause().getClass().getSimpleName());
