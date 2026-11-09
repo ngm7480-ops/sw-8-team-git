@@ -8,12 +8,27 @@ authPreviewCards.forEach(card => card.addEventListener('click', () => { if (!isL
 refreshAuthPreview();
 function openLoginModal(viewName) {
  pendingProtectedView = viewName;
+ document.body.classList.remove('login-page-mode');
+ document.getElementById('loginTitle').textContent = '로그인이 필요해요';
+ document.getElementById('loginDescription').textContent = '급식은 누구나 볼 수 있어요. 시간표, 일정표, 메모와 대회 신청은 로그인 후 이용할 수 있습니다.';
+ document.getElementById('loginOverlay').hidden = false;
+ document.getElementById('loginPassword').value = '';
+ document.getElementById('loginId').focus();
+}
+function openLoginPage() {
+ pendingProtectedView = 'home';
+ document.body.classList.add('login-page-mode');
+ document.getElementById('loginTitle').textContent = '로그인';
+ document.getElementById('loginDescription').textContent = '아이디와 비밀번호를 입력해 로그인하세요.';
  document.getElementById('loginOverlay').hidden = false;
  document.getElementById('loginPassword').value = '';
  document.getElementById('loginId').focus();
 }
 function closeLoginModal() {
  document.getElementById('loginOverlay').hidden = true;
+ document.body.classList.remove('login-page-mode');
+ document.getElementById('loginTitle').textContent = '로그인이 필요해요';
+ document.getElementById('loginDescription').textContent = '급식은 누구나 볼 수 있어요. 시간표, 일정표, 메모와 대회 신청은 로그인 후 이용할 수 있습니다.';
 }
 const days = [
  {label:'월',date:'10.19',full:'10월 19일 월요일',menu:[['🍚','현미밥','곡류'],['🍲','소고기뭇국','국/탕'],['🍗','간장 닭볶음','메인 메뉴'],['🥗','시금치나물','채소'],['🥬','배추김치','김치'],['🍊','귤','후식']],kcal:785,carbs:105,protein:35,note:'새로운 한 주의 시작! 천천히 꼭꼭 씹어 먹어요.'},
@@ -81,7 +96,7 @@ document.getElementById('loginButton').addEventListener('click', () => {
   refreshAuthPreview();
   showView('meal');
  } else {
-  openLoginModal('home');
+  openLoginPage();
  }
 });
 document.getElementById('closeLoginModal').addEventListener('click', closeLoginModal);

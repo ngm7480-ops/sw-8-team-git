@@ -340,6 +340,11 @@ html[style*="dark"] .home-meal-card h3,html[style*="dark"] .dashboard-timetable 
 .login-overlay { position:fixed; inset:0; z-index:1000; display:grid; place-items:center; padding:20px; background:rgba(13,30,54,.42); backdrop-filter:blur(7px); }
 .login-overlay[hidden] { display:none; }
 .login-modal { position:relative; width:min(100%,420px); padding:30px; border:1px solid #e7edf6; border-radius:24px; background:#fff; color:#183252; box-shadow:0 24px 80px #12345a35; }
+.login-school-logo { display:none; width:124px; height:124px; object-fit:contain; margin:0 auto 22px; }
+body.login-page-mode .login-school-logo { display:block; }
+body.login-page-mode .app > header, body.login-page-mode .app > main, body.login-page-mode .app > footer { display:none; }
+body.login-page-mode .login-overlay { background:#f4f7fc; backdrop-filter:none; }
+body.login-page-mode .login-modal { width:min(100%,460px); padding:38px; box-shadow:0 16px 48px #12345a12; }
 .login-close { position:absolute; right:17px; top:14px; border:0; background:transparent; color:#7d8fa8; font-size:27px; cursor:pointer; }
 .login-kicker { color:#3182f6; font-size:11px; font-weight:850; letter-spacing:.12em; }
 .login-modal h2 { margin:10px 0 8px; font-size:25px; letter-spacing:-.05em; }
