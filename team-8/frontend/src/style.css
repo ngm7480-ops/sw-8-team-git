@@ -358,3 +358,15 @@ html[style*="dark"] .login-hint { background:#222f43; }
 .auth-preview { position:relative; }
 .auth-preview.is-locked > * { filter:blur(4px); pointer-events:none; user-select:none; }
 .auth-preview.is-locked::after { content:"🔒 로그인 후 확인 가능"; position:absolute; inset:0; z-index:5; display:grid; place-items:center; padding:16px; background:rgba(248,251,255,.72); color:#24558c; font-size:13px; font-weight:800; text-align:center; cursor:pointer; backdrop-filter:blur(1px); }
+.brand { padding:0; border:0; background:transparent; color:inherit; font:inherit; text-align:left; cursor:pointer; }
+.placeholder-card h2 { margin:0; font-size:23px; letter-spacing:-.04em; }
+.placeholder-card { min-height:250px; padding:36px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+.placeholder-card h2 { margin:14px 0 8px; }
+.placeholder-card p { margin:0; color:light-dark(#74867b,#a4b6aa); font-size:13px; }
+.placeholder-icon { width:44px; height:44px; display:grid; place-items:center; border-radius:14px; background:var(--site-secondary); color:var(--site-primary); font-size:24px; }
+.icon-btn:focus-visible,.top-link:focus-visible,.day-btn:focus-visible,.brand:focus-visible { outline:3px solid #8cbcff; outline-offset:3px; }
+.top-link[aria-current="page"] { color:#102848; }
+html[style*="dark"] .top-link[aria-current="page"] { color:#eaf1fa; }
+@media (max-width:560px) {
+  .placeholder-card { min-height:220px; padding:24px; }
+}
