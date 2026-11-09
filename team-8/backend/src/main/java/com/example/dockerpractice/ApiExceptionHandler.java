@@ -14,4 +14,9 @@ public class ApiExceptionHandler {
     public ResponseEntity<Map<String, String>> invalidDate() {
         return ResponseEntity.badRequest().body(Map.of("message", "date는 YYYY-MM-DD 형식의 날짜여야 합니다."));
     }
+
+    @ExceptionHandler(ExternalApiException.class)
+    public ResponseEntity<Map<String, String>> externalApi(ExternalApiException exception) {
+        return ResponseEntity.status(502).body(Map.of("message", exception.getMessage()));
+    }
 }
