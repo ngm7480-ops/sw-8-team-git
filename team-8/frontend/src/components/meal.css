@@ -1,0 +1,29 @@
+.meal-view { margin-top: 7px; color: #344c6d; }
+.meal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 0 0 14px; }
+.meal-head h2 { margin: 0; color: #10294c; font-size: 21px; letter-spacing: -.045em; }
+.meal-school { margin: 0 0 10px; color: #7e91ab; font-size: 12px; }
+.meal-date-nav { display: flex; align-items: center; gap: 7px; }
+.meal-arrow { width: 34px; height: 34px; border: 1px solid #e7eff9; border-radius: 50%; background: #f2f7fd; color: #24466f; font-size: 22px; line-height: 1; cursor: pointer; }
+.meal-date-input { height: 34px; border: 1px solid #e7eff9; border-radius: 8px; padding: 0 8px; font: inherit; font-size: 13px; color: #24466f; background: #fff; }
+.meal-today, .meal-retry { height: 34px; padding: 0 12px; border: 1px solid #cfe0f6; border-radius: 8px; background: #e0edff; color: #3776c3; font: inherit; font-size: 12px; cursor: pointer; }
+.meal-arrow:disabled, .meal-date-input:disabled, .meal-today:disabled, .meal-retry:disabled { opacity: .5; cursor: not-allowed; }
+.meal-grid, .meal-skeleton-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 11px; }
+.meal-skeleton-grid { margin-bottom: 14px; }
+.meal-card { min-height: 216px; border: 1px solid #e4eef9; border-radius: 14px; padding: 17px 16px; background: linear-gradient(145deg, #f9fcff, #f0f7ff); color: #344c6d; }
+.meal-card h3 { margin: 0 0 12px; color: #142e51; font-size: 16px; letter-spacing: -.035em; }
+.meal-card ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 5px; }
+.meal-card li { font-size: 12px; line-height: 1.35; overflow-wrap: anywhere; }
+.meal-card-none { margin: 0; font-size: 12px; color: #93a4b9; }
+.meal-calories { display: inline-block; margin-top: 10px; padding: 4px 7px; border-radius: 6px; background: #e0edff; color: #3776c3; font-size: 10px; }
+.meal-state { padding: 28px 16px; text-align: center; color: #6d809a; font-size: 13px; }
+.meal-state p { margin: 0 0 12px; }
+.meal-state-error p { color: #c0392b; }
+.meal-skeleton { min-height: 140px; border-radius: 14px; background: linear-gradient(90deg, #eef4fb, #f8fbff, #eef4fb); background-size: 200% 100%; animation: meal-shimmer 1.2s infinite; }
+@keyframes meal-shimmer { to { background-position: -200% 0; } }
+@media (max-width: 560px) {
+  .meal-grid, .meal-skeleton-grid { grid-template-columns: 1fr; }
+  .meal-card { min-height: 0; padding: 16px; }
+  .meal-head { align-items: flex-start; }
+  .meal-date-nav { width: 100%; }
+  .meal-date-input { min-width: 0; flex: 1; }
+}
