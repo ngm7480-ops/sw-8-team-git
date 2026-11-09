@@ -3,11 +3,12 @@
 ## 목표
 React + Vite 개발 서버를 실행하고, 브라우저에서 기존 HTML UI(우리학교 포털)가 React로 표시되게 한다.
 
-## 현재 상태
-- `frontend/package.json`에 react 19, vite 7, plugin-react 설정됨
-- Vite는 **프로젝트 루트의 `index.html`**을 진입점으로 쓰는데, 현재 HTML은 `src/index.html`에 있고 `<link href="css/style.css">`, `script.js`를 직접 참조 → 그대로는 동작하지 않음
-- `src/main.jsx`는 `#root`를 찾지만 해당 HTML에는 `#root`가 없음
-- `script.js`는 DOM을 직접 조작(`getElementById`, `innerHTML`)하는 바닐라 JS
+## 구현 결과 (2026-11-09)
+- Vite 진입점을 `frontend/index.html`로 만들고, `#root`에서 `/src/main.jsx`를 불러오도록 연결함
+- `src/main.jsx`에서 `style.css`를 import함
+- `src/App.jsx`에 상단 메뉴와 화면 전환 상태를 두고, 구현 범위 밖 메뉴는 자리표시자로 표시함
+- `src/components/MealView.jsx`를 급식 화면으로 사용함. 후속 작업에서 API 연동이 추가되어 현재 화면은 예시 상수가 아니라 `/api/meals`를 호출함
+- 이전 정적 HTML과 DOM 직접 조작 스크립트(`src/index.html`, `src/script.js`)는 React 이전 후 제거함
 
 ## 범위
 - 포함: 개발 서버 실행, 진입점 정리, HTML → React 컴포넌트 이전 계획 및 1차 이전
@@ -25,13 +26,15 @@ React + Vite 개발 서버를 실행하고, 브라우저에서 기존 HTML UI(�
 5. `Ctrl+C`로 종료 후 재실행을 반복
 
 ## 완료 조건
-- [ ] `npm install`이 오류 없이 끝난다
-- [ ] `npm run dev` 후 `localhost:5173`에서 포털 헤더와 급식 화면이 보인다
-- [ ] 상단 메뉴 클릭 시 화면이 전환된다(React state)
-- [ ] 브라우저 콘솔에 오류가 없다
-- [ ] 서버 종료 → 재실행이 문제없다
-- [ ] `npm run build`가 성공한다
+- [x] `npm install`이 오류 없이 끝난다
+- [x] Vite 개발 서버가 시작되고 진입 HTML과 React 모듈이 HTTP 200으로 응답한다. 검증 중 `5173`은 사용 중이어서 `5174`를 사용함
+- [x] 상단 메뉴 전환을 React state로 처리한다
+- [ ] 브라우저 화면과 콘솔 오류를 직접 확인한다
+- [x] 개발 서버를 종료할 수 있다
+- [x] `npm run build`가 성공한다
+
+브라우저 UI 자동화 대상이 이 세션에 제공되지 않아 화면 클릭과 콘솔 확인은 남아 있다. 코드와 빌드는 확인했다.
 
 ## 리스크
-- `script.js`를 그대로 `<script>`로 넣으면 React DOM과 충돌한다 → 이전 후 삭제
-- `.DS_Store` 등 불필요 파일이 커밋되지 않게 `.gitignore` 확인
+- `script.js`를 그대로 `<script>`로 넣으면 React DOM과 충돌하므로 React 이전 후 제거한다
+- `.DS_Store` 등 불필요 파일이 커밋되지 않게 `.gitignore`를 확인한다

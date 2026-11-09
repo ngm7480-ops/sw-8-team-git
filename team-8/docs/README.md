@@ -27,6 +27,6 @@
 
 ## 현재 코드 상태 (2026-11-09 기준)
 
-- `team-8/frontend`: Vite + React 19. `src/App.jsx`는 연결 확인용 화면, 기존 HTML 시안은 `src/index.html` · `style.css` · `script.js`로 분리돼 있음(아직 React 미적용).
-- `team-8/backend`: Spring Boot, `HealthController`(`/health`, `/health/db`)만 있음. 패키지 `com.example.dockerpractice`.
+- `team-8/frontend`: Vite + React 19. `frontend/index.html`이 진입점이고, `src/App.jsx`가 메뉴 전환을 관리하며 `src/components/MealView.jsx`가 급식 화면과 API 호출을 담당함. 공통 스타일은 `src/main.jsx`에서 불러옴.
+- `team-8/backend`: Spring Boot. 패키지 `com.example.dockerpractice`; 상태 확인과 급식 API를 제공함.
 - `lecture_sample` 브랜치: 패키지 `com.teameight`, `MealController`·`NeisMealService`·`ApiExceptionHandler` 및 테스트 포함.
