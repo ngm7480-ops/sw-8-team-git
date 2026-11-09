@@ -18,6 +18,7 @@ services:
       API_ENDPOINT: ${API_ENDPOINT:-https://open.neis.go.kr/hub/mealServiceDietInfo}
       NEIS_OFFICE_CODE: ${NEIS_OFFICE_CODE:-R10}
       NEIS_SCHOOL_CODE: ${NEIS_SCHOOL_CODE:-8750829}
+      NEIS_SCHOOL_NAME: ${NEIS_SCHOOL_NAME:-경북소프트웨어마이스터고등학교}
 
     # MySQL이 실제 요청을 받을 준비가 된 뒤 Backend를 시작한다.
     depends_on:
