@@ -8,14 +8,24 @@ import "./meal.css";
 
 const ORDER = ["조식", "중식", "석식"];
 
-function fmt(d) {
-  const p = (n) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+function todayInSeoul() {
+  const dateParts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
+  const parts = Object.fromEntries(
+    dateParts.filter(({ type }) => type !== "literal").map(({ type, value }) => [type, value]),
+  );
+  return `${parts.year}-${parts.month}-${parts.day}`;
 }
 
 function shift(dateStr, days) {
   const [y, m, d] = dateStr.split("-").map(Number);
-  return fmt(new Date(y, m - 1, d + days));
+  const shifted = new Date(Date.UTC(y, m - 1, d + days));
+  const p = (n) => String(n).padStart(2, "0");
+  return `${shifted.getUTCFullYear()}-${p(shifted.getUTCMonth() + 1)}-${p(shifted.getUTCDate())}`;
 }
 
 function sortMeals(meals) {
@@ -27,7 +37,7 @@ function sortMeals(meals) {
 }
 
 export default function MealView() {
-  const [date, setDate] = useState(() => fmt(new Date()));
+  const [date, setDate] = useState(todayInSeoul);
   const [status, setStatus] = useState("loading"); // loading | error | empty | data
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
@@ -81,7 +91,7 @@ export default function MealView() {
     <section className="meal-view">
       <div className="meal-head">
         <h2>🍽️ 급식</h2>
-        <DateNav date={date} onChange={onNav} onToday={() => setDate(fmt(new Date()))} disabled={loading} />
+        <DateNav date={date} onChange={onNav} onToday={() => setDate(todayInSeoul())} />
       </div>
       {data?.school && (status === "data" || status === "empty") && <p className="meal-school">{data.school}</p>}
       {loading && <LoadingState />}
@@ -89,8 +99,8 @@ export default function MealView() {
       {status === "empty" && <EmptyState date={date} />}
       {status === "data" && (
         <div className="meal-grid">
-          {data.meals.map((m, i) => (
-            <MealCard key={`${m.type}-${i}`} meal={m} />
+          {data.meals.map((meal) => (
+            <MealCard key={meal.type} meal={meal} />
           ))}
         </div>
       )}
